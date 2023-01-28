@@ -1,0 +1,1 @@
+Create Сompany - форма создания компании (Name, Address, Service of activity, Number of employees, Description, Type). Форма должна иметь базовую валидацию

@@ -1,0 +1,69 @@
+@import "../../styles/vars.scss";
+@import "../../styles/mixins.scss";
+
+.createCompany {
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+
+    &__tittle {
+        @include h1;
+    }
+
+    &__form {
+        width: 50%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 5fr 0.5fr;
+        gap: 30px;
+        grid-template-areas:
+            "createCompany__form__name createCompany__form__service"
+            "createCompany__form__address createCompany__form__address"
+            "createCompany__form__numberOfEmployees createCompany__form__type"
+            "createCompany__form__description createCompany__form__description"
+            "createCompany__form__submit .";
+
+        * {
+            padding-left: 10px;
+            font-size: 1.1rem;
+            border-radius: 3px;
+        }
+
+        &__name {
+            grid-area: createCompany__form__name;
+        }
+
+        &__service {
+            grid-area: createCompany__form__service;
+        }
+
+        &__address {
+            grid-area: createCompany__form__address;
+        }
+
+        &__numberOfEmployees {
+            grid-area: createCompany__form__numberOfEmployees;
+        }
+
+        &__type {
+            grid-area: createCompany__form__type;
+        }
+
+        &__description {
+            grid-area: createCompany__form__description;
+            resize: none;
+            padding-top: 5px;
+        }
+
+        &__submit {
+            grid-area: createCompany__form__submit;
+            @include button;
+            width: fit-content;
+        }
+    }
+}

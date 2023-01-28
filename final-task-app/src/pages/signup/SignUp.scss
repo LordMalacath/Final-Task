@@ -1,0 +1,97 @@
+@import "../../styles/vars.scss";
+@import "../../styles/mixins.scss";
+
+.signUp {
+    * {
+        color: $color-white;
+    }
+
+    width: 50%;
+    margin: 30px auto;
+    padding-top: 20px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background: $color-orange;
+
+    &__tittle {
+        font-size: 3rem;
+    }
+
+    &__form {
+        * {
+            color: $color-black;
+            font-size: 1.3rem;
+            border-radius: 1rem;
+            line-height: 1.5;
+            padding-left: 10px;
+        }
+
+        height: 100%;
+        width: 80%;
+        padding-bottom: 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 10fr 1fr;
+        gap: 20px 20px;
+        grid-template-areas: "signUp__form__name signUp__form__lastName"
+        "signUp__form__nickName signUp__form__position"
+        "signUp__form__email signUp__form__phone"
+        "signUp__form__password signUp__form__passwordConfirm"
+        "signUp__form__description signUp__form__description"
+        "signUp__form__submit signUp__form__signIn";
+
+        &__name {
+            grid-area: signUp__form__name;
+        }
+
+        &__lastName {
+            grid-area: signUp__form__lastName;
+        }
+
+        &__nickName {
+            grid-area: signUp__form__nickName;
+        }
+
+        &__position {
+            grid-area: signUp__form__position;
+        }
+
+        &__email {
+            grid-area: signUp__form__email;
+        }
+
+        &__phone {
+            grid-area: signUp__form__phone;
+        }
+
+        &__password {
+            grid-area: signUp__form__password;
+        }
+
+        &__passwordConfirm {
+            grid-area: signUp__form__passwordConfirm;
+        }
+
+        &__description {
+            grid-area: signUp__form__description;
+            resize: none;
+            padding-top: 10px;
+
+            &:focus {}
+        }
+
+        &__submit {
+            grid-area: signUp__form__submit;
+            @include button;
+        }
+
+        &__signIn {
+            grid-area: signUp__form__signIn;
+            padding: 0;
+            @include button;
+        }
+    }
+}

@@ -1,0 +1,63 @@
+@import "../../styles/vars.scss";
+@import "../../styles/mixins.scss";
+
+
+.companiesList {
+    padding-top: 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    * {
+        color: $color-white;
+    }
+
+    &__tittle{
+        @include h1;
+    }
+    &__sort {
+        display: grid;
+        grid-template-columns: 1fr 1fr 150px;
+        gap: 5px;
+
+        button {
+            color: $color-black;
+            font-size: 1.1rem;
+        }
+
+        button.active {
+            background-color: $color-blue;
+            font-weight: 500;
+        }
+
+        &__name {}
+
+        &__service {}
+    }
+
+    &__company {
+        border-bottom: 3px solid;
+        padding-bottom: 5px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 150px;
+
+        &__name {
+            font-size: 3rem;
+        }
+
+        &__service {
+            font-size: 2rem;
+        }
+    }
+
+    .detail {
+        @include button;
+        color: $color-black;
+        background: $color-white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

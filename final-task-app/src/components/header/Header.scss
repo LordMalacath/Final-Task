@@ -1,0 +1,42 @@
+@import "../../styles/vars.scss";
+@import "../../styles/mixins.scss";
+
+
+header {
+    background: $color-gold;
+    height: 72px;
+    width: 100%;
+    padding: 0 5%;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+
+    span {
+        font-size: 3rem;
+        font-weight: 700;
+    }
+
+    nav {
+        display: flex;
+        gap: 2rem;
+
+        a {
+            font-size: 1.5rem;
+            font-weight: 500;
+
+            &:active {
+                color: $color-white;
+            }
+        }
+    }
+
+    button {
+        @include button;
+        font-weight: 500;
+        height: 50%;
+        background: $color-orange;
+        border: 1px solid $color-grey;
+    }
+}

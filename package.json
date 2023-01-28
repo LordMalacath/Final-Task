@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "glob-import-loader": "^1.2.0",
+    "react-hook-form": "^7.42.1",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.6.2",
+    "sass": "^1.57.1"
+  }
+}
