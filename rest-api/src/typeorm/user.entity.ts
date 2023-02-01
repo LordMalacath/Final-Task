@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Company } from './company.entity';
 
 @Entity()
 export class User {
@@ -15,13 +16,13 @@ export class User {
     @Column()
     lastName: string;
 
-    @Column()
+    @Column({ unique: true })
     nickName: string;
 
-    @Column()
+    @Column({ unique: true })
     email: string;
 
-    @Column()
+    @Column({ unique: true })
     phone: string;
 
     @Column()
@@ -29,4 +30,11 @@ export class User {
 
     @Column()
     description: string;
+
+    @Column() 
+    password: string;
+
+    @OneToMany(() => Company, (company) => company.owner)
+    @JoinColumn()
+    companies: Company[]
 }

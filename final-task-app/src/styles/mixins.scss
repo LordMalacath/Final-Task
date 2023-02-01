@@ -26,3 +26,8 @@
     font-weight: 600;
     color: $color-gold;
 }
+
+@mixin h2 {
+  font-size: 3rem;
+  color: $color-white;
+}

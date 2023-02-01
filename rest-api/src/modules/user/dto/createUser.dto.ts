@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { IsEmail, IsNotEmpty } from "class-validator";
+import { Company } from "src/typeorm";
 
-export class CreateUsersDto {
+export class CreateUserDto {
     @IsNotEmpty()
     name: string;
 
@@ -23,4 +24,9 @@ export class CreateUsersDto {
 
     @IsNotEmpty()
     description: string;
+
+    @IsNotEmpty()
+    password: string;
+
+    companies: Company[]
 }

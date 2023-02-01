@@ -4,11 +4,13 @@ import "./Header.scss"
 
 export default function Header() {
 
-    return (
-        <header>
-            <span>TeamCamp</span>
-            <div><Nav /></div>
-            <LogOutBtn />
-        </header>
-    )
+  return (
+    <header>
+      <span>TeamCamp</span>
+      <div>
+        <Nav />
+      </div>
+      <LogOutBtn />
+    </header>
+  )
 }

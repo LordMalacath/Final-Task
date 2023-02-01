@@ -5,10 +5,12 @@ import { User } from "src/typeorm";
 import { UsersController } from "./users.controllers";
 import { UsersService } from "./users.service";
 
+
 @Module({
-    imports: [TypeOrmModule.forFeature([User]),],
+    imports: [TypeOrmModule.forFeature([User])],
     controllers: [UsersController],
     providers: [UsersService],
+    exports: [UsersService],
 })
 
 export class UsersModule { }

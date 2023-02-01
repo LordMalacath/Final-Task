@@ -1,10 +1,15 @@
 /* eslint-disable prettier/prettier */
-import { Module } from '@nestjs/common';
-import { CompaniesController } from './companies.controller';
-import { CompaniesService } from './companies.service';
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { Company } from "src/typeorm";
+import { CompanyController } from "./companies.controller";
+import { CompanyService } from "./companies.service";
 
 @Module({
-    providers: [CompaniesService],
-    controllers: [CompaniesController]
+  imports: [TypeOrmModule.forFeature([Company])],
+  controllers: [CompanyController],
+  providers: [CompanyService],
+  exports: [CompanyService]
 })
-export class CompaniesModule { }
+
+export class CompanyModule { }

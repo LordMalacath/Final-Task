@@ -2,7 +2,7 @@
 import { IsNotEmpty } from "class-validator"
 import { User } from "src/typeorm";
 
-export class CreateCompanyDto {
+export class UpdateCompanyDto {
   @IsNotEmpty()
   name: string;
 

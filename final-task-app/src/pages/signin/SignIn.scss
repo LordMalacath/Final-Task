@@ -1,0 +1,108 @@
+@import "../../styles/vars.scss";
+@import "../../styles/mixins.scss";
+
+.signIn {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  padding-top: 20px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background: $color-orange;
+
+  &__tittle {
+    @include h2;
+  }
+
+  &__form {
+    * {
+      color: $color-black;
+      font-size: 1.3rem;
+      border-radius: 1rem;
+      line-height: 1.5;
+      padding-left: 10px;
+    }
+
+    height: 100%;
+    width: 80%;
+    padding-bottom: 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr) 0.4fr;
+    gap: 20px 20px;
+    grid-auto-flow: row;
+    grid-template-areas: "signIn__form__email signIn__form__email"
+    "signIn__form__password signIn__form__password"
+    "signIn__form__submit signIn__form__signUp";
+
+    &__email {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 5px;
+      grid-auto-flow: row;
+      grid-template-areas:
+        "email__tittle email__error"
+        "email__input email__input";
+      grid-area: signIn__form__email;
+
+      .email__tittle {
+        grid-area: email__tittle;
+        align-self: end;
+      }
+
+      .email__error {
+        grid-area: email__error;
+        align-self: end;
+
+      }
+
+      .email__input {
+        grid-area: email__input;
+      }
+    }
+
+    &__password {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 5px;
+      grid-auto-flow: row;
+      grid-template-areas:
+        "passsword__tittle password__error"
+        "password__input password__input";
+      grid-area: signIn__form__password;
+
+      .passsword__tittle {
+        grid-area: passsword__tittle;
+        align-self: end;
+      }
+
+      .password__error {
+        grid-area: password__error;
+        align-self: end;
+      }
+
+      .password__input {
+        grid-area: password__input;
+      }
+    }
+
+    &__submit {
+      grid-area: signIn__form__submit;
+      @include button;
+    }
+
+    &__signUp {
+      grid-area: signIn__form__signUp;
+      padding: 0;
+      @include button;
+    }
+  }
+}

@@ -1,32 +1,55 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { authSignup, profileUpdate } from "api";
+import { setFail, setOk } from "./loading";
+
+export const signup = createAsyncThunk(
+  'user/signup',
+  async (data, { dispatch }) => {
+    try {
+      await authSignup(data);
+      dispatch(setOk())
+    } catch (error) {
+      dispatch(setFail())
+      console.log("Redux: signup ", error)
+    }
+  }
+);
+
+export const updateUser = createAsyncThunk(
+  'user/updateUser',
+  async ({ body, token }, { dispatch }) => {
+    try {
+      const response = await profileUpdate({ body, token });
+      const userInfo = await response.json();
+      dispatch(setInfo(userInfo));
+      dispatch(setEditStatus(false));
+      dispatch(setOk());
+    } catch (error) {
+      dispatch(setFail());
+      console.log("Redux: user: update fail");
+    }
+  }
+)
 
 export const userSlice = createSlice({
-    name: "user",
-    initialState: {
-        info: {
-            id: "1",
-            role: "admin",
-            name: "Aleksansdr",
-            lastName: "Sokyrka",
-            nickName: "Lord",
-            phone: "+380669554507",
-            email: "sokyrka.aleksandr.aleksandr@gmail.com",
-            position: "Owner",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        },
-        editStatus: false,
-    },
+  name: "user",
+  initialState: {
+    info: "",
+    editStatus: false,
+    role: "user",
+  },
 
-    reducers: {
-        setInfo: (state, action) => {
-            state.info = action.payload;
-        },
-        setEditStatus: (state) => {
-            state.editStatus = !state.editStatus;
-        }
+  reducers: {
+    setInfo: (state, action) => {
+      state.info = action.payload;
+      console.log("Redux: User info set")
+    },
+    setEditStatus: (state, action) => {
+      state.editStatus = action.payload;
+      console.log("Redux: Edit");
     }
+  }
 });
 
-export const {setInfo, setEditStatus} = userSlice.actions;
+export const { setInfo, setEditStatus } = userSlice.actions;
 export default userSlice.reducer

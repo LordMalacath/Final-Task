@@ -8,80 +8,97 @@ import CreateCompany from "pages/createCompany/CreateCompany";
 import CompanyDetail from "pages/companyDetail/CompanyDetail";
 import Companies from "pages/companies/Companies";
 import CompanyEdit from "pages/companyEdit/CompanyEdit";
+import Loading from "components/loading/Loading";
 
 
-export const router = createBrowserRouter([
+export const router = createBrowserRouter(
+  [
     {
-        path: "/",
-        element: <Layout />,
-        children: [
+      path: "/",
+      element: <Layout />,
+      children: [
+        {
+          index: true,
+          element: (
+            <Loading>
+              <SignIn />
+            </Loading>
+          ),
+        },
+        {
+          path: "signup",
+          element: (
+            <Loading>
+              <SignUp />
+            </Loading>
+          ),
+        },
+        {
+          path: "profile",
+          element: (
+            <Loading>
+              <ProtectedRoute>
+                <Profile />,
+              </ProtectedRoute>
+            </Loading>
+          )
+        },
+        {
+          path: "company/",
+          children: [
             {
-                path: "signin",
-                element: <SignIn />,
+              index: true,
+              element: (
+                <Loading>
+                  <ProtectedRoute>
+                    <Companies />
+                  </ProtectedRoute>
+                </Loading>
+              ),
             },
             {
-                path: "signup",
-                element: <SignUp />,
+              path: "detail",
+              element: (
+                <Loading>
+                  <ProtectedRoute>
+                    <CompanyDetail />
+                  </ProtectedRoute>
+                </Loading>
+              ),
             },
             {
-                path: "profile",
-                element:
-                    (
-                        <ProtectedRoute>
-                            <Profile />,
-                        </ProtectedRoute>
-                    )
+              path: "create",
+              element: (
+                <Loading>
+                  <ProtectedRoute>
+                    <CreateCompany />
+                  </ProtectedRoute>
+                </Loading>
+              )
             },
             {
-                path: "company/",
-                children: [
-                    {
-                        path: "detail",
-                        element:
-                            (
-                                <ProtectedRoute>
-                                    <CompanyDetail />
-                                </ProtectedRoute>
-                            ),
-                    },
-                    {
-                        path: "create",
-                        element:
-                            (
-                                <ProtectedRoute>
-                                    <CreateCompany />
-                                </ProtectedRoute>
-                            )
-                    },
-                    {
-                        path: "all",
-                        element:
-                            (
-                                <ProtectedRoute>
-                                    <Companies />
-                                </ProtectedRoute>
-                            )
-                    },
-                    {
-                        path: "edit",
-                        element:
-                            (
-                                <ProtectedRoute>
-                                    <CompanyEdit />
-                                </ProtectedRoute>
-                            )
-                    },
-                ]
+              path: "edit",
+              element: (
+                <Loading>
+                  <ProtectedRoute>
+                    <CompanyEdit />
+                  </ProtectedRoute>
+                </Loading>
+              )
             },
-            {
-                path: "admin/",
-                element:
-                    (
-                        <ProtectedRoute>
-                            <Profile />
-                        </ProtectedRoute>
-                    )
-            }
-        ]
+          ]
+        },
+        {
+          path: "admin/",
+          element: (
+            <Loading>
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            </Loading>
+          )
+        }
+      ]
     }
-])
+  ]
+)

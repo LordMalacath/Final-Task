@@ -1,37 +1,43 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
-import { CompaniesService } from './companies.service';
-import { CreateCompanyDto } from './dto/create-company.dto';
-import { UpdateCompanyDto } from './dto/update-company.dto';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Req, UseGuards } from "@nestjs/common";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { CompanyService } from "./companies.service";
+import { CreateCompanyDto } from "./dto/create-company.dto";
+import { UpdateCompanyDto } from "./dto/updateCompany.dto";
 
-@Controller('companies')
-export class CompaniesController {
+@Controller('company')
+export class CompanyController {
+  constructor(private readonly companyService: CompanyService) { }
 
-    constructor(private readonly companiesService: CompaniesService) { }
+  @Post('create')
+  @UseGuards(JwtAuthGuard)
+  createPost(
+    @Body() createCompany: CreateCompanyDto,
+    @Req() req,
+  ) {
+    return this.companyService.createCompany(createCompany, req.user)
+  }
 
-    @Get()
-    getAll() {
-        return this.companiesService.getAll()
-    }
+  @Put('update/:id')
+  @UseGuards(JwtAuthGuard)
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateCompanyDto: UpdateCompanyDto
+  ) {
+    await this.companyService.updateCompany(id, updateCompanyDto)
+  }
 
-    @Get(':id')
-    getChosed(@Param('id') id: string) {
-        return this.companiesService.getChosed(id)
-    }
+  @Get('list')
+  @UseGuards(JwtAuthGuard)
+  getUserCompanies() {
+    return this.companyService.getUserCompanies()
+  }
 
-    @Post()
-    @HttpCode(HttpStatus.CREATED)
-    create(@Body() createCompanyDto: CreateCompanyDto) {
-        return this.companiesService.create(createCompanyDto)
-    }
-
-    @Delete(':id')
-    delete(@Param('id') id: string) {
-        return 'Remove ' + id
-    }
-
-    @Put(':id')
-    update(@Body() updateCompanyDto: UpdateCompanyDto, @Param('id') id: string) {
-        return 'Update ' + id
-    }
+  @Delete('delete/:id')
+  @UseGuards(JwtAuthGuard)
+  async delete(
+    @Param('id', ParseIntPipe) id: number
+  ) {
+    await this.companyService.deleteCompany(id)
+  }
 }
