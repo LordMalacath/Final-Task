@@ -1,0 +1,67 @@
+@import "../../styles/vars.scss";
+@import "../../styles/mixins.scss";
+
+.companyDetail {
+  @include page;
+  height: 60%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, auto) 3fr auto;
+  gap: 15px 15px;
+  grid-template-areas: "companyDetail__name ."
+    "companyDetail__type companyDetail__service"
+    "companyDetail__adress companyDetail__adress"
+    "companyDetail__numberOfEmployee ."
+    "companyDetail__description companyDetail__description"
+    "companyDetail__button .";
+  justify-content: stretch;
+  align-content: stretch;
+  justify-items: stretch;
+  align-items: stretch;
+
+  * {
+    color: $color-white;
+  }
+
+  &__name {
+    grid-area: companyDetail__name;
+    @include h1;
+  }
+
+  &__type {
+    grid-area: companyDetail__type;
+    font-size: $font-m;
+  }
+
+  &__service {
+    grid-area: companyDetail__service;
+    font-size: $font-m;
+  }
+
+  &__adress {
+    grid-area: companyDetail__adress;
+    font-size: $font-m;
+  }
+
+  &__numberOfEmployee {
+    grid-area: companyDetail__numberOfEmployee;
+    font-size: $font-m;
+  }
+
+  &__description {
+    grid-area: companyDetail__description;
+    background: $color-white;
+    color: $color-black;
+    border: 2px solid $color-grey;
+    border-radius: 8px;
+    padding: 24px 40px;
+    line-height: 1.2;
+    font-size: 1.1rem;
+  }
+
+  &__button {
+    grid-area: companyDetail__button;
+    @include button;
+    width: fit-content;
+  }
+}

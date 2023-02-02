@@ -1,18 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setEditStatus } from "redux/slices/user"
+import { setEditStatus } from "redux/slices/loading";
 import UserUpdateForm from "./components/UserUpdateForm";
 import "./Profile.scss"
 
 export default function Profile() {
-  const { info: userInfo, editStatus: edit } = useSelector(state => state.user);
+  const { user: { info: userInfo }, loading: { editStatus: edit } } = useSelector(state => state);
   const dispatch = useDispatch()
   const handleClick = () => {
     dispatch(setEditStatus(true))
   }
 
   return (
-      <div className="profile">
-        {!edit ? <div className="user">
+    <div className="profile">
+      {!edit ?
+        <div className="user">
           <div className="user__credentials">
             <span className="user__credentials--name">{userInfo.name}</span>
             <span className="user__credentials--lastName">{userInfo.lastName}</span>
@@ -25,9 +26,9 @@ export default function Profile() {
           </div>
           <div className="user__description">{userInfo.description}</div>
         </div>
-          :
-          <UserUpdateForm userInfo={userInfo} />}
-        {!edit ? <button onClick={handleClick}>Edit</button> : ""}
-      </div>
+        :
+        <UserUpdateForm userInfo={userInfo} />}
+      {!edit ? <button onClick={handleClick}>Edit</button> : ""}
+    </div>
   )
 }

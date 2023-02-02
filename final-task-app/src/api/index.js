@@ -14,20 +14,15 @@ const endpoint = {
 
 //------------------------------------------------
 export const authSignin = async (body) => {
-  try {
-    body = JSON.stringify(body);
-    const response = await fetch(`${link + endpoint.signin}`, {
-      method: 'POST',
-      body,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-    return response
-  } catch (error) {
-    console.log("Api: auth signup", error);
-    return error
-  }
+  body = JSON.stringify(body);
+  const response = await fetch(`${link + endpoint.signin}`, {
+    method: 'POST',
+    body,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+  return response
 }
 
 export const authSignup = async (body) => {
@@ -130,21 +125,16 @@ export const companyCreate = async ({ body, token }) => {
 }
 
 export const companyUpdate = async ({ id, token, body }) => {
-  try {
-    body = JSON.stringify(body);
-    const response = await fetch(`${link + endpoint.companyUpdate + id}`, {
-      method: 'PUT',
-      body,
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      }
-    })
-    return response
-  } catch (error) {
-    console.log("Api: update company", error);
-    return error
-  }
+  body = JSON.stringify(body);
+  const response = await fetch(`${link + endpoint.companyUpdate + id}`, {
+    method: 'PUT',
+    body,
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    }
+  })
+  return response
 }
 
 export const companyDelete = async ({ id, token }) => {
@@ -152,12 +142,11 @@ export const companyDelete = async ({ id, token }) => {
     const response = await fetch(`${link + endpoint.companyDelete + id}`, {
       method: 'DELETE',
       headers: {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        }
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
       }
     })
-    console.log(response)
+    return response
   } catch (error) {
     console.log("Api: delete company", error);
     return error

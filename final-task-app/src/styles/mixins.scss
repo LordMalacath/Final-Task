@@ -1,33 +1,39 @@
 @import "./vars.scss";
 
 @mixin button {
-    border-radius: 15px;
-    padding: 5px 15px;
-    font-size: 1.2rem;
-    color: $color-black;
-    background: $color-white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+  border-radius: 15px;
+  padding: 5px 15px;
+  font-size: 1.2rem;
+  color: $color-black;
+  background: $color-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 
-    &:active:hover {
-        box-shadow: 0px 0px 10px 1px rgba(212, 179, 179, 0.7);
-        top: 1px;
-    }
+  &:active:hover {
+    box-shadow: 0px 0px 10px 1px rgba(212, 179, 179, 0.7);
+    top: 1px;
+  }
 
-    &:hover {
-        box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.7);
-    }
+  &:hover {
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.7);
+  }
 }
 
-@mixin h1{
-    font-size: 3rem;
-    font-weight: 600;
-    color: $color-gold;
+@mixin h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  color: $color-gold;
 }
 
 @mixin h2 {
   font-size: 3rem;
   color: $color-white;
+}
+
+@mixin page {
+  padding-top: 50px;
+  margin: 0 auto;
+  width: 40%;
 }

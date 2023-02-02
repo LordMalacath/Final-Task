@@ -8,15 +8,24 @@ export const signin = createAsyncThunk(
   async (data, { dispatch }) => {
     try {
       const response = await authSignin(data)
-      const { user, access_token } = await response.json();
-      dispatch(setToken(access_token));
-      dispatch(setAuth(true));
-      dispatch(setInfo(user));
-      dispatch(setOk());
+      if (response.ok) {
+        const { user, access_token } = await response.json();
+        dispatch(setToken(access_token));
+        dispatch(setAuth(true));
+        dispatch(setInfo(user));
+        dispatch(setOk());
+        dispatch(setErrorMessage(""));
+      } else {
+        const { message } = await response.json()
+        dispatch(setErrorMessage(message));
+        dispatch(setFail());
+        dispatch(setOk());
+      }
     } catch (error) {
       dispatch(setFail());
       dispatch(setAuth(false));
-      console.log("Redux: signin", error)
+      console.log("Redux: signin", error);
+      dispatch(setOk())
     }
   }
 )
@@ -26,6 +35,7 @@ export const authSlice = createSlice({
   initialState: {
     access_token: null,
     auth: false,
+    errorMessage: "",
   },
   reducers: {
     setToken: (state, action) => {
@@ -35,8 +45,17 @@ export const authSlice = createSlice({
     setAuth: (state, action) => {
       state.auth = action.payload
     },
+    setErrorMessage: (state, action) => {
+      state.errorMessage = action.payload;
+    }
   },
 });
 
-export const { setToken, setAuth } = authSlice.actions;
+
+export const {
+  setToken,
+  setAuth,
+  setErrorMessage
+} = authSlice.actions;
+
 export default authSlice.reducer;

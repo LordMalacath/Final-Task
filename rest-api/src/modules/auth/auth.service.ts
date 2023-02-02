@@ -19,7 +19,7 @@ export class AuthService {
       const { password, ...result } = user;
       return result;
     } catch (error) {
-      throw new HttpException('Wrong credentials provided', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Wrong email or password', HttpStatus.BAD_REQUEST);
     };
   }
 
@@ -29,7 +29,7 @@ export class AuthService {
       hashedPassword
     );
     if (!isPasswordMatching) {
-      throw new HttpException('Wrong credentials provided', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Wrong email or password', HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -40,9 +40,5 @@ export class AuthService {
       access_token: this.jwtService.sign(payload)
     }
     return data
-  }
-
-  logout() {
-
   }
 }

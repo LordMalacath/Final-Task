@@ -2,130 +2,140 @@
 @import "../../styles/mixins.scss";
 
 .profile {
-    padding-top: 20px;
+  @include page;
+  height: 100%;
+
+  .user {
+    * {
+      color: $color-white
+    }
+
+    height: 60%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    &__credentials {
+      display: flex;
+      gap: 20px;
+
+      span {
+        @include h1;
+      }
+    }
+
+    &__position {
+      font-size: $font-m;
+    }
+
+    &__contacts {
+      display: flex;
+      gap: 40px;
+
+      * {
+        font-size: $font-m;
+      }
+
+      &--phone {}
+
+      &--email {}
+    }
+
+    &__description {
+      border: 2px solid $color-grey;
+      border-radius: 8px;
+      padding: 24px 40px;
+      width: 60%;
+      height: 80%;
+      line-height: 1.2;
+      font-size: 1.1rem;
+      background: $color-white;
+      color: $color-black;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  button {
+    @include button;
+    margin-top: 15px;
+  }
+
+  .userUpdate {
     height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 
-    .user {
-        * {
-            color: $color-white
-        }
+    &__credentials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      width: 100%;
 
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
+      * {
+        flex-grow: 1;
+        flex-shrink: 1;
+        padding: 5px 10px;
+        font-size: 3rem;
+        flex-basis: 200px;
+        background: $color-white;
+      }
 
-        &__credentials {
-            display: flex;
-            gap: 20px;
-            font-size: 4rem;
+      &--name {}
 
-            span {}
-        }
+      &--lastName {}
 
-        &__position {
-            font-size: 1.5rem;
-        }
+      &--nickName {}
+    }
 
-        &__contacts {
-            display: flex;
-            gap: 40px;
+    &__position {
+      font-size: $font-m;
+      width: 200px;
+      padding: 4px 8px;
+      background: $color-white
+    }
 
-            &--phone {}
+    &__contacts {
+      display: flex;
+      gap: 40px;
 
-            &--email {}
-        }
+      * {
+        padding: 4px 2px 4px 8px;
+        background: $color-white;
+        font-size: $font-m;
+      }
 
-        &__description {
-            border: 2px solid $color-grey;
-            border-radius: 8px;
-            padding: 24px 40px;
-            width: 100%;
-            height: 50%;
-            line-height: 1.2;
-            font-size: 1.1rem;
-        }
+      &--phone {}
+
+      &--email {
+        width: 300px;
+      }
+    }
+
+    &__description {
+      border: 2px solid $color-grey;
+      border-radius: 8px;
+      padding: 24px 40px;
+      width: 100%;
+      height: 50%;
+      line-height: 1.2;
+      font-size: 1.1rem;
+      resize: none;
+      background: $color-white;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     button {
-        @include button;
-        margin-top: 15px;
+      width: fit-content;
     }
-
-    .userUpdate {
-
-        width: 50%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-
-        &__credentials {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            width: 100%;
-
-
-            * {
-                flex-grow: 1;
-                flex-shrink: 1;
-                padding: 5px 10px;
-                font-size: 3rem;
-                flex-basis: 200px;
-                background: $color-white;
-            }
-
-            &--name {}
-
-            &--lastName {}
-
-            &--nickName {}
-        }
-
-        &__position {
-            font-size: 1.5rem;
-            width: 200px;
-            padding: 4px 8px;
-            background: $color-white
-        }
-
-        &__contacts {
-            display: flex;
-            gap: 40px;
-
-            * {
-                padding: 4px 2px 4px 8px;
-                background: $color-white
-            }
-
-            &--phone {}
-
-            &--email {
-                width: 300px;
-            }
-        }
-
-        &__description {
-            border: 2px solid $color-grey;
-            border-radius: 8px;
-            padding: 24px 40px;
-            width: 100%;
-            height: 50%;
-            line-height: 1.2;
-            font-size: 1.1rem;
-            resize: none;
-
-            background: $color-white;
-
-            &::-webkit-scrollbar {
-                display: none;
-            }
-        }
-
-        button {
-            width: fit-content;
-        }
-    }
+  }
 }

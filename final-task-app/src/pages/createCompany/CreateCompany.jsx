@@ -1,24 +1,32 @@
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { createCompany } from "redux/slices/companies";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { createCompany } from "redux/slices/companiesThunk/company.create";
+import { deleteCompany } from "redux/slices/companiesThunk/company.delete";
+import { updateCompany } from "redux/slices/companiesThunk/company.update";
 import { setLoading } from "redux/slices/loading";
 import "./CreateCompany.scss"
 
 
-export default function CreateCompany() {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
-  const { access_token } = useSelector(state => state.auth);
+export default function CreateCompany({ companyData, formType = "Create" }) {
+  const { register, handleSubmit, formState: { errors }, reset } = useForm({ defaultValues: companyData });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onSubmit = data => {
-    const createData = { body: data, token: access_token }
     dispatch(setLoading());
-    dispatch(createCompany(createData));
+    dispatch(formType === "Create" ? createCompany(data) : updateCompany(data));
     reset();
   };
 
+  const handleDelete = () => {
+    dispatch(setLoading());
+    dispatch(deleteCompany(companyData.id));
+    navigate('/company/')
+  }
+
   return (
     <div className="createCompany">
-      <div className="createCompany__tittle">Create Company</div>
+      <div className="createCompany__tittle">{formType} Company</div>
       <form className="createCompany__form"
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -57,8 +65,14 @@ export default function CreateCompany() {
         <button className="createCompany__form__submit"
           type="submit"
         >
-          Create
+          {formType === "Create" ?
+            "Create" : "Save"}
         </button>
+        {formType !== "Create" ?
+          <button className="createCompany__form__delete" onClick={handleDelete}>
+            Delete
+          </button>
+          : ''}
       </form>
     </div>
   )

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { authSignup, profileUpdate } from "api";
-import { setFail, setOk } from "./loading";
+import { setEditStatus, setFail, setOk } from "./loading";
 
 export const signup = createAsyncThunk(
   'user/signup',
@@ -35,7 +35,6 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     info: "",
-    editStatus: false,
     role: "user",
   },
 
@@ -44,12 +43,8 @@ export const userSlice = createSlice({
       state.info = action.payload;
       console.log("Redux: User info set")
     },
-    setEditStatus: (state, action) => {
-      state.editStatus = action.payload;
-      console.log("Redux: Edit");
-    }
   }
 });
 
-export const { setInfo, setEditStatus } = userSlice.actions;
+export const { setInfo } = userSlice.actions;
 export default userSlice.reducer

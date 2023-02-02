@@ -21,15 +21,20 @@ export class CompanyService {
     return this.companyRepository.save(newCompany)
   }
 
-  updateCompany(id: number, updateCompanyDto: UpdateCompanyDto) {
-    return this.companyRepository.update({ id }, { ...updateCompanyDto })
+  async updateCompany(id: number, updateCompanyDto: UpdateCompanyDto) {
+    await this.companyRepository.update({ id }, { ...updateCompanyDto })
+    return await this.getCompanyById(id)
   }
 
   deleteCompany(id: number) {
     return this.companyRepository.delete({ id })
   }
 
-  async getUserCompanies() {
+  async getCompanyById(id: number) {
+    return await this.companyRepository.findOne({ where: { id: id } });
+  }
+
+  async getUserCompanies(id: number) {
     const result = await this.companyRepository.find({
       relations: {
         owner: true,

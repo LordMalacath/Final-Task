@@ -8,7 +8,7 @@ const style = {
     height: "100%",
     width: "100%",
     paddingTop: "72px",
-    paddingLeft: "calc(20% + 40px)",
+    // paddingLeft: "calc(20% + 40px)",
     paddingRight: "40px",
     overflow: "hidden",
     overflowY: "scroll",

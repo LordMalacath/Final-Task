@@ -6,8 +6,8 @@ export default function LogOutBtn() {
   const { auth } = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const logOut = () => {
-    dispatch(setToken(null))
-    return redirect("/signin")
+    // dispatch(setToken(null))
+    // return redirect("/signin")
   }
   if (auth) {
     return <button onClick={logOut}>

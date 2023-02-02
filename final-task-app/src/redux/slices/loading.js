@@ -6,6 +6,8 @@ export const loadingSlice = createSlice({
     ok: true,
     fail: false,
     loading: false,
+    editStatus: false,
+    confirm: false,
   },
   reducers: {
     setOk: (store) => {
@@ -26,9 +28,13 @@ export const loadingSlice = createSlice({
       store.fail = false;
       store.loading = true;
       console.log("Redux: Loading")
-    }
+    },
+    setEditStatus: (state, action) => {
+      state.editStatus = action.payload;
+      console.log("Redux: Edit");
+    },
   }
 })
 
-export const { setOk, setFail, setLoading } = loadingSlice.actions;
+export const { setOk, setFail, setLoading, setEditStatus } = loadingSlice.actions;
 export default loadingSlice.reducer;

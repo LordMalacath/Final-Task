@@ -6,7 +6,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50%;
+  width: 40%;
   height: 50%;
   padding-top: 20px;
   border-radius: 30px;
@@ -26,7 +26,6 @@
       font-size: 1.3rem;
       border-radius: 1rem;
       line-height: 1.5;
-      padding-left: 10px;
     }
 
     height: 100%;
@@ -51,6 +50,10 @@
         "email__tittle email__error"
         "email__input email__input";
       grid-area: signIn__form__email;
+
+      * {
+        padding-left: 10px;
+      }
 
       .email__tittle {
         grid-area: email__tittle;
@@ -78,6 +81,10 @@
         "passsword__tittle password__error"
         "password__input password__input";
       grid-area: signIn__form__password;
+
+      * {
+        padding-left: 10px;
+      }
 
       .passsword__tittle {
         grid-area: passsword__tittle;

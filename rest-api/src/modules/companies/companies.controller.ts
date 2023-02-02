@@ -24,13 +24,15 @@ export class CompanyController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateCompanyDto: UpdateCompanyDto
   ) {
-    await this.companyService.updateCompany(id, updateCompanyDto)
+    return await this.companyService.updateCompany(id, updateCompanyDto)
   }
 
   @Get('list')
   @UseGuards(JwtAuthGuard)
-  getUserCompanies() {
-    return this.companyService.getUserCompanies()
+  getUserCompanies(
+    @Req() req,
+  ) {
+    return this.companyService.getUserCompanies(req.user.id)
   }
 
   @Delete('delete/:id')

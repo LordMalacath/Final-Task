@@ -7,20 +7,20 @@ import { setLoading } from 'redux/slices/loading';
 import "./SignIn.scss"
 
 export default function SignIn() {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
-  const { auth } = useSelector(state => state.auth)
+  const { register, handleSubmit, formState: { errors }} = useForm();
+  const { auth, errorMessage } = useSelector(state => state.auth)
   const dispatch = useDispatch();
   const redirect = useNavigate();
   const onSubmit = data => {
     dispatch(setLoading());
     dispatch(signin(data));
-    reset();
     redirect('/profile')
   };
   if (!auth) {
     return (
       <div className='signIn'>
         <div className='signIn__tittle'>Sign In</div>
+        {errorMessage && <div>{errorMessage}</div>}
         <form className='signIn__form'
           onSubmit={handleSubmit(onSubmit)}
         >
@@ -33,6 +33,7 @@ export default function SignIn() {
             />
             <input className='email__input'
               type="email"
+              autoComplete='false'
               {...register("email", { required: "This field is required", pattern: /^\S+@\S+$/i })}
             />
           </div>
@@ -45,6 +46,7 @@ export default function SignIn() {
             />
             <input className='password__input'
               type="password"
+              autoComplete='false'
               {...register("password", {
                 required: "This field is required",
                 minLength: {

@@ -7,7 +7,6 @@ import Profile from "pages/profile/Profile";
 import CreateCompany from "pages/createCompany/CreateCompany";
 import CompanyDetail from "pages/companyDetail/CompanyDetail";
 import Companies from "pages/companies/Companies";
-import CompanyEdit from "pages/companyEdit/CompanyEdit";
 import Loading from "components/loading/Loading";
 
 
@@ -57,7 +56,7 @@ export const router = createBrowserRouter(
               ),
             },
             {
-              path: "detail",
+              path: "detail/:id",
               element: (
                 <Loading>
                   <ProtectedRoute>
@@ -72,16 +71,6 @@ export const router = createBrowserRouter(
                 <Loading>
                   <ProtectedRoute>
                     <CreateCompany />
-                  </ProtectedRoute>
-                </Loading>
-              )
-            },
-            {
-              path: "edit",
-              element: (
-                <Loading>
-                  <ProtectedRoute>
-                    <CompanyEdit />
                   </ProtectedRoute>
                 </Loading>
               )
