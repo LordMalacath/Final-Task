@@ -1,23 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { resetStore } from "./loading";
 
+const initialState = {
+  list: [],
+  sort: "",
+  companyErrorMessage: "",
+};
 
 export const companiesSlice = createSlice({
   name: "companies",
-  initialState: {
-    list: [
-    ],
-    sort: "",
-    companyErrorMessage: "",
-  },
-
+  initialState,
   reducers: {
     setCompaniesList: (state, action) => {
       state.list = action.payload;
-      console.log("Redux: Companies list set")
     },
     setSort: (state, action) => {
       state.sort = action.payload;
-      console.log("Redux: Companies list sorted by", action.payload)
     },
     setCreatedCompany: (state, action) => {
       state.list = [action.payload, ...state.list];
@@ -37,6 +35,7 @@ export const companiesSlice = createSlice({
       state.list = state.list.filter(item => item.id !== action.payload)
     }
   },
+  extraReducers: (builder) => builder.addCase(resetStore, () => initialState),
 });
 
 export const {

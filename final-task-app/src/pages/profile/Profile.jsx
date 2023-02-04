@@ -4,31 +4,28 @@ import UserUpdateForm from "./components/UserUpdateForm";
 import "./Profile.scss"
 
 export default function Profile() {
-  const { user: { info: userInfo }, loading: { editStatus: edit } } = useSelector(state => state);
   const dispatch = useDispatch()
-  const handleClick = () => {
-    dispatch(setEditStatus(true))
-  }
+  const { user: { info: userInfo }, loading: { editStatus: edit } } = useSelector(state => state);
+  const handleEdit = () => { dispatch(setEditStatus(true)) }
 
   return (
-    <div className="profile">
+    <div className="page">
       {!edit ?
         <div className="user">
-          <div className="user__credentials">
-            <span className="user__credentials--name">{userInfo.name}</span>
-            <span className="user__credentials--lastName">{userInfo.lastName}</span>
-            <span className="user__credentials--nickName">"{userInfo.nickName}"</span>
+          <div className="user__name">
+            <span>{userInfo.name}</span>
+            <span>{userInfo.lastName}</span>
+            <span>"{userInfo.nickName}"</span>
           </div>
-          <div className="user__position">{userInfo.position}</div>
-          <div className="user__contacts">
-            <div className="user__contacts--phone">{userInfo.phone}</div>
-            <div className="user__contacts--email">{userInfo.email}</div>
-          </div>
+          <div className="user__position">Position: {userInfo.position}</div>
+          <div className="user__email">{userInfo.email}</div>
+          <div className="user__phone">{userInfo.phone}</div>
           <div className="user__description">{userInfo.description}</div>
+          <button className="user__edit" onClick={handleEdit}>Edit</button>
         </div>
         :
-        <UserUpdateForm userInfo={userInfo} />}
-      {!edit ? <button onClick={handleClick}>Edit</button> : ""}
+        <UserUpdateForm userInfo={userInfo} />
+      }
     </div>
   )
 }

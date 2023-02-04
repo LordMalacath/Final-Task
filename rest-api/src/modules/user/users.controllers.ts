@@ -24,13 +24,13 @@ export class UsersController {
   @Get(':id')
   @UseGuards(JwtAuthGuard)
   findUserById(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.findUsersById(id)
+    return this.usersService.findUsersById(id);
   }
 
   @Get('email')
   @UseGuards(JwtAuthGuard)
   findUserByEmail(@Param('email') email: string) {
-    return this.usersService.getUserByEmail(email)
+    return this.usersService.getUserByEmail(email);
   }
 
   @Put('update')

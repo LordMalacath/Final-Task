@@ -36,4 +36,16 @@
   padding-top: 50px;
   margin: 0 auto;
   width: 40%;
+
+  * {
+    color: $color-white;
+  }
+}
+
+@mixin description {
+  border: 2px solid $color-grey;
+  border-radius: 8px;
+  padding: 16px 24px;
+  line-height: 1.2;
+  font-size: 1.1rem;
 }

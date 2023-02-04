@@ -2,26 +2,24 @@
 @import "../../styles/mixins.scss";
 
 aside {
-  width: 20%;
+  flex: 1 0 15%;
+  min-width: fit-content;
   height: calc(100vh - 72px);
   background: $color-gold;
   border-top: solid 2px $color-black;
   overflow-x: hidden;
   left: 0;
-  // position: fixed;
   font-size: 2rem;
-  // display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 10px;
   display: none;
 
-  a {
+  a,
+  button {
     @include button;
     border-radius: 3px;
     justify-content: flex-start;
     background: $color-white
   }
-
-
 }

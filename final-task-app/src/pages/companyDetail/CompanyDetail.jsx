@@ -15,7 +15,7 @@ export default function CompanyDetail() {
   }
 
   return (
-    <>
+    <div className="page">
       {!edit ?
         <div className="companyDetail">
           <div className="companyDetail__name">{name}</div>
@@ -29,6 +29,6 @@ export default function CompanyDetail() {
         :
         <CreateCompany formType={"Edit"} companyData={{ id, name, adress, description, numberOfEmployees, serviceOfActivity, type }} />
       }
-    </>
+    </div>
   )
 }

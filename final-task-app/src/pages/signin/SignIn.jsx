@@ -2,17 +2,15 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { signin } from 'redux/slices/auth';
-import { setLoading } from 'redux/slices/loading';
+import { signin } from 'redux/thunk/auth/auth.signin';
 import "./SignIn.scss"
 
 export default function SignIn() {
-  const { register, handleSubmit, formState: { errors }} = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const { auth, errorMessage } = useSelector(state => state.auth)
   const dispatch = useDispatch();
   const redirect = useNavigate();
   const onSubmit = data => {
-    dispatch(setLoading());
     dispatch(signin(data));
     redirect('/profile')
   };
@@ -21,6 +19,7 @@ export default function SignIn() {
       <div className='signIn'>
         <div className='signIn__tittle'>Sign In</div>
         {errorMessage && <div>{errorMessage}</div>}
+
         <form className='signIn__form'
           onSubmit={handleSubmit(onSubmit)}
         >
@@ -31,12 +30,14 @@ export default function SignIn() {
               name="email"
               as={"div"}
             />
+
             <input className='email__input'
               type="email"
               autoComplete='false'
               {...register("email", { required: "This field is required", pattern: /^\S+@\S+$/i })}
             />
           </div>
+
           <div className='signIn__form__password'>
             <h3 className='passsword__tittle'>Password</h3>
             <ErrorMessage className="password__error"
@@ -44,6 +45,7 @@ export default function SignIn() {
               name="password"
               as={"div"}
             />
+
             <input className='password__input'
               type="password"
               autoComplete='false'
@@ -56,11 +58,13 @@ export default function SignIn() {
               })}
             />
           </div>
+
           <button className='signIn__form__submit'
             type="submit"
           >
             Sign In
           </button>
+
           <Link className='signIn__form__signUp' to={"signup"}>Sign Up</Link>
         </form>
       </div>

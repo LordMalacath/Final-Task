@@ -1,20 +1,18 @@
 import { useDispatch, useSelector } from "react-redux"
-import { redirect } from "react-router-dom";
-import { setToken } from "redux/slices/auth";
+import { logOut } from "redux/thunk/auth/auth.logout";
 
 export default function LogOutBtn() {
-  const { auth } = useSelector(state => state.auth);
+  const { auth } = useSelector(store => store.auth)
   const dispatch = useDispatch();
-  const logOut = () => {
-    // dispatch(setToken(null))
-    // return redirect("/signin")
+  const handleLogOut = () => {
+    dispatch(logOut());
   }
+
   if (auth) {
-    return <button onClick={logOut}>
+    return <button className="btn__logout" onClick={handleLogOut}>
       Log Out
     </button>
   } else {
-    return <div></div>
+    return
   }
-
 }

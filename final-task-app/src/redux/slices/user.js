@@ -1,49 +1,20 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { authSignup, profileUpdate } from "api";
-import { setEditStatus, setFail, setOk } from "./loading";
+import { createSlice } from "@reduxjs/toolkit";
+import { resetStore } from "./loading";
 
-export const signup = createAsyncThunk(
-  'user/signup',
-  async (data, { dispatch }) => {
-    try {
-      await authSignup(data);
-      dispatch(setOk())
-    } catch (error) {
-      dispatch(setFail())
-      console.log("Redux: signup ", error)
-    }
-  }
-);
-
-export const updateUser = createAsyncThunk(
-  'user/updateUser',
-  async ({ body, token }, { dispatch }) => {
-    try {
-      const response = await profileUpdate({ body, token });
-      const userInfo = await response.json();
-      dispatch(setInfo(userInfo));
-      dispatch(setEditStatus(false));
-      dispatch(setOk());
-    } catch (error) {
-      dispatch(setFail());
-      console.log("Redux: user: update fail");
-    }
-  }
-)
+const initialState = {
+  info: "",
+  role: "user",
+};
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: {
-    info: "",
-    role: "user",
-  },
-
+  initialState,
   reducers: {
     setInfo: (state, action) => {
       state.info = action.payload;
-      console.log("Redux: User info set")
     },
-  }
+  },
+  extraReducers: (builder) => builder.addCase(resetStore, () => initialState),
 });
 
 export const { setInfo } = userSlice.actions;

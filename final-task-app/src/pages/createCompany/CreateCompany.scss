@@ -7,6 +7,10 @@
   flex-direction: column;
   gap: 50px;
 
+  *{
+    color: $color-black;
+  }
+
   &__tittle {
     @include h1;
   }

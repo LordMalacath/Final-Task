@@ -19,10 +19,6 @@
   justify-items: stretch;
   align-items: stretch;
 
-  * {
-    color: $color-white;
-  }
-
   &__name {
     grid-area: companyDetail__name;
     @include h1;
@@ -50,13 +46,7 @@
 
   &__description {
     grid-area: companyDetail__description;
-    background: $color-white;
-    color: $color-black;
-    border: 2px solid $color-grey;
-    border-radius: 8px;
-    padding: 24px 40px;
-    line-height: 1.2;
-    font-size: 1.1rem;
+    @include description;
   }
 
   &__button {

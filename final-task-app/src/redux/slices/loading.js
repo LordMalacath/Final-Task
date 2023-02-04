@@ -1,40 +1,49 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAction, createSlice } from "@reduxjs/toolkit";
+
+export const resetStore = createAction('RESET_STORE');
+
+const initialState = {
+  ok: true,
+  fail: false,
+  loading: false,
+  editStatus: false,
+  openModal: false,
+};
 
 export const loadingSlice = createSlice({
   name: 'loading',
-  initialState: {
-    ok: true,
-    fail: false,
-    loading: false,
-    editStatus: false,
-    confirm: false,
-  },
+  initialState,
   reducers: {
-    setOk: (store) => {
-      store.ok = true;
-      store.fail = false;
-      store.loading = false;
-      console.log("Redux: OK")
+    setOk: (state) => {
+      state.ok = true;
+      state.fail = false;
+      state.loading = false;
     },
-    setFail: (store) => {
-      store.ok = false;
-      store.fail = true;
-      store.loading = false;
-      console.log("Redux: Fail")
+    setFail: (state) => {
+      state.ok = false;
+      state.fail = true;
+      state.loading = false;
 
     },
-    setLoading: (store) => {
-      store.ok = false;
-      store.fail = false;
-      store.loading = true;
-      console.log("Redux: Loading")
+    setLoading: (state) => {
+      state.ok = false;
+      state.fail = false;
+      state.loading = true;
     },
     setEditStatus: (state, action) => {
       state.editStatus = action.payload;
-      console.log("Redux: Edit");
     },
-  }
+    setOpenModal: (state, action) => {
+      state.openModal = action.payload;
+    }
+  },
+  extraReducers: (builder) => builder.addCase(resetStore, () => initialState),
 })
 
-export const { setOk, setFail, setLoading, setEditStatus } = loadingSlice.actions;
+export const {
+  setOk,
+  setFail,
+  setLoading,
+  setEditStatus,
+  setOpenModal } = loadingSlice.actions;
 export default loadingSlice.reducer;

@@ -1,0 +1,72 @@
+@import "../../../styles/vars.scss";
+@import "../../../styles/mixins.scss";
+
+.userUpdate {
+  @include page;
+  height: 60%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, auto) 3fr auto;
+  gap: 20px 20px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "userUpdate__name userUpdate__name userUpdate__name"
+    "userUpdate__position userUpdate__position ."
+    "userUpdate__email userUpdate__email userUpdate__phone"
+    "userUpdate__description userUpdate__description userUpdate__description"
+    "userUpdate__save . .";
+
+  * {
+    color: $color-black;
+  }
+
+  input,
+  select {
+    padding: 5px 10px;
+    overflow: hidden;
+    border-radius: 3px;
+  }
+
+  &__name {
+    grid-area: userUpdate__name;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    input {
+      flex: 1 1 auto;
+      font-size: 1.5rem;
+
+      &:nth-child(3) {
+        flex: 1 1 auto;
+      }
+    }
+  }
+
+  &__position {
+    grid-area: userUpdate__position;
+    font-size: $font-m;
+  }
+
+  &__email {
+    grid-area: userUpdate__email;
+    font-size: $font-m;
+  }
+
+  &__phone {
+    grid-area: userUpdate__phone;
+    font-size: $font-m;
+  }
+
+  &__description {
+    grid-area: userUpdate__description;
+    @include description;
+  }
+
+  &__save {
+    grid-area: userUpdate__save;
+    @include button;
+    width: fit-content;
+  }
+
+}
