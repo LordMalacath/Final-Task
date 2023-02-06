@@ -3,13 +3,17 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from "../user/users.service"
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/typeorm';
+import { Repository } from 'typeorm';
 
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    @InjectRepository(User) private readonly usersRepository: Repository<User>
   ) { }
 
   async validateUser(email: string, pass: string): Promise<any> {
@@ -35,10 +39,25 @@ export class AuthService {
 
   async signin(user: any) {
     const payload = { name: user.name, email: user.email, sub: user.id };
+    const { companies, ...userProfile } = await this.getInitialData(user.id)
     const data = {
-      user,
+      userProfile,
+      companies,
       access_token: this.jwtService.sign(payload)
     }
     return data
+  }
+
+  async getInitialData(id: number) {
+    const result = await this.usersRepository.find({
+      relations: {
+        companies: true,
+      },
+      where: {
+        id: id
+      },
+    });
+    const { password, ...response } = result[0]
+    return response;
   }
 }

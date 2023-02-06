@@ -7,7 +7,9 @@ import { UsersService } from "./users.service";
 
 @Controller('profile')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(
+    private readonly usersService: UsersService
+  ) { }
 
   @Post('signup')
   @UsePipes(ValidationPipe)
@@ -15,22 +17,10 @@ export class UsersController {
     return this.usersService.registerUser(createUserDto)
   }
 
-  @Get('all')
-  @UseGuards(JwtAuthGuard)
-  getUsers() {
-    return this.usersService.getUsers()
-  }
-
   @Get(':id')
   @UseGuards(JwtAuthGuard)
   findUserById(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findUsersById(id);
-  }
-
-  @Get('email')
-  @UseGuards(JwtAuthGuard)
-  findUserByEmail(@Param('email') email: string) {
-    return this.usersService.getUserByEmail(email);
   }
 
   @Put('update')
@@ -40,5 +30,13 @@ export class UsersController {
     @Req() req,
   ) {
     return this.usersService.updateUser(req.user.id, updateUserDto)
+  }
+
+  @Get('initial')
+  @UseGuards(JwtAuthGuard)
+  initialData(
+    @Req() req,
+  ) {
+    return this.usersService.getInitialData(req.user.id);
   }
 }

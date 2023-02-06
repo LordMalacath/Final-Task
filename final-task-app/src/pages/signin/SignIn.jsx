@@ -7,13 +7,14 @@ import "./SignIn.scss"
 
 export default function SignIn() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const { auth, errorMessage } = useSelector(state => state.auth)
+  const { auth: { auth }, app: { errorMessage } } = useSelector(state => state)
   const dispatch = useDispatch();
   const redirect = useNavigate();
   const onSubmit = data => {
     dispatch(signin(data));
-    redirect('/profile')
+    redirect('/profile');
   };
+  
   if (!auth) {
     return (
       <div className='signIn'>

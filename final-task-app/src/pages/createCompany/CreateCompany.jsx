@@ -1,23 +1,22 @@
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createCompany } from "redux/slices/companiesThunk/company.create";
-import { deleteCompany } from "redux/slices/companiesThunk/company.delete";
-import { updateCompany } from "redux/slices/companiesThunk/company.update";
+import { createCompany } from "redux/thunk/company/company.create";
+import { deleteCompany } from "redux/thunk/company/company.delete";
+import { updateCompany } from "redux/thunk/company/company.update";
 import "./CreateCompany.scss"
 
 
 export default function CreateCompany({ companyData, formType = "Create" }) {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({ defaultValues: companyData });
+  const { register, handleSubmit } = useForm({ defaultValues: companyData });
+  const { errorMessage } = useSelector(state => state.app);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onSubmit = data => {
     dispatch(formType === "Create" ? createCompany(data) : updateCompany(data));
-    reset();
   };
 
   const handleDelete = () => {
-    console.log("Open modal")
     dispatch(deleteCompany(companyData.id));
     navigate('/company/')
   }
@@ -25,7 +24,10 @@ export default function CreateCompany({ companyData, formType = "Create" }) {
   return (
     <div className="page">
       <div className="createCompany">
-        <div className="createCompany__tittle">{formType} Company</div>
+        {errorMessage ?
+          <div className="createCompany__tittle error">{errorMessage}!</div>
+          :
+          <div className="createCompany__tittle">{formType} Company</div>}
         <form className="createCompany__form"
           onSubmit={handleSubmit(onSubmit)}
         >

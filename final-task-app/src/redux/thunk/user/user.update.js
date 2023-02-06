@@ -1,21 +1,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { profileUpdate } from "api";
-import { setEditStatus, setLoading, setOk } from "redux/slices/loading";
+import { setEditStatus, setLoading } from "redux/slices/app";
 import { setInfo } from "redux/slices/user";
 
 export const updateUser = createAsyncThunk(
   'user/updateUser',
   async ({ body, token }, { dispatch }) => {
-    dispatch(setLoading())
+    dispatch(setLoading(true));
+
     try {
       const response = await profileUpdate({ body, token });
-      const userInfo = await response.json();
-      dispatch(setInfo(userInfo));
-      dispatch(setEditStatus(false));
-      dispatch(setOk());
+      if (response.ok) {
+        const userInfo = await response.json();
+        dispatch(setInfo(userInfo));
+        dispatch(setEditStatus(false));
+      } else {
+        const { message } = await response.json()
+        throw new Error(message)
+      }
     } catch (error) {
-      dispatch(setOk());
-      console.log("Redux: user: update fail");
+      console.log("Redux: user: update ", error);
+      return error
     }
+
+    dispatch(setLoading(false));
   }
 )

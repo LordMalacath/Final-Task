@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { bodyParser } from './middlewares/body-parse.middleware';
 import { AuthModule } from './modules/auth/auth.module';
 import { CompanyModule } from './modules/companies/companies.module';
 import { UsersModule } from './modules/user/users.module';
@@ -30,4 +31,18 @@ import entities from './typeorm';
   ],
   providers: [],
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(bodyParser)
+      .forRoutes({
+        path: '*', 
+        method: RequestMethod.POST,
+      },
+      {
+        path: '*',
+        method: RequestMethod.PUT,
+      }
+      )
+  }
+}

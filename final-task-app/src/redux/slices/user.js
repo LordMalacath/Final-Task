@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { resetStore } from "./loading";
+import { resetStore } from "./app";
 
 const initialState = {
   info: "",
-  role: "user",
 };
 
 export const userSlice = createSlice({
@@ -17,5 +16,7 @@ export const userSlice = createSlice({
   extraReducers: (builder) => builder.addCase(resetStore, () => initialState),
 });
 
-export const { setInfo } = userSlice.actions;
+export const {
+  setInfo,
+} = userSlice.actions;
 export default userSlice.reducer

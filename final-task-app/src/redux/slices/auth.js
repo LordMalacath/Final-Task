@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
 import Cookies from "universal-cookie";
-import { resetStore } from "./loading";
+import { resetStore } from "./app";
 
 const initialState = {
   access_token: null,
   auth: false,
-  errorMessage: "",
 };
 
 export const authSlice = createSlice({
@@ -25,12 +24,6 @@ export const authSlice = createSlice({
     setAuth: (state, action) => {
       state.auth = action.payload
     },
-    setErrorMessage: (state, action) => {
-      state.errorMessage = action.payload;
-    },
-    removeToken: (state) => {
-      state.access_token = null;
-    }
   },
   extraReducers: (builder) => builder.addCase(resetStore, () => initialState),
 });
@@ -38,8 +31,6 @@ export const authSlice = createSlice({
 export const {
   setToken,
   setAuth,
-  setErrorMessage,
-  removeToken
 } = authSlice.actions;
 
 export default authSlice.reducer;

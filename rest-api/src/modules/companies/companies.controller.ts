@@ -20,19 +20,19 @@ export class CompanyController {
 
   @Put('update/:id')
   @UseGuards(JwtAuthGuard)
-  async update(
+  update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateCompanyDto: UpdateCompanyDto
+    @Body() updateCompanyDto: UpdateCompanyDto,
   ) {
-    return await this.companyService.updateCompany(id, updateCompanyDto)
+    return this.companyService.updateCompany(id, updateCompanyDto)
   }
 
   @Get('list')
   @UseGuards(JwtAuthGuard)
-  getUserCompanies(
+  async getUserCompanies(
     @Req() req,
   ) {
-    return this.companyService.getUserCompanies(req.user.id)
+    return await this.companyService.getUserCompanies(req.user.id)
   }
 
   @Delete('delete/:id')
@@ -41,5 +41,14 @@ export class CompanyController {
     @Param('id', ParseIntPipe) id: number
   ) {
     await this.companyService.deleteCompany(id)
+  }
+
+  @Get('sort/:sortBy')
+  @UseGuards(JwtAuthGuard)
+  sortedList(
+    @Param('sortBy') sortBy: string,
+    @Req() req,
+  ) {
+    return this.companyService.getSortedList(req.user.id, sortBy)
   }
 }

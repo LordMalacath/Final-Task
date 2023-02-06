@@ -1,15 +1,23 @@
 import CreateCompany from "pages/createCompany/CreateCompany";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom"
-import { setEditStatus } from "redux/slices/loading";
+import { setEditStatus } from "redux/slices/app";
 import "./CompanyDetail.scss"
 
 export default function CompanyDetail() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { companies: { list }, loading: { editStatus: edit } } = useSelector(state => state);
+  const { companies: { list }, app: { editStatus: edit } } = useSelector(state => state);
   const companyId = location.pathname.split('/').at(-1);
-  const { id, name, adress, description, numberOfEmployees, serviceOfActivity, type } = list.find(element => element.id === companyId);
+  const {
+    id,
+    name,
+    adress,
+    description,
+    numberOfEmployees,
+    serviceOfActivity,
+    type
+  } = list.find(element => element.id === companyId);
   const handleClick = () => {
     dispatch(setEditStatus(true));
   }

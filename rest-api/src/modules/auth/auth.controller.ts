@@ -1,12 +1,14 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Request, Post, UseGuards, Get } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Get, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller()
 export class AuthController {
-  constructor(private authService: AuthService) { }
+  constructor(
+    private readonly authService: AuthService
+    ) { }
 
   @Post('signin')
   @UseGuards(LocalAuthGuard)
@@ -18,5 +20,13 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   async logout() {
     return
+  }
+
+  @Get('initial')
+  @UseGuards(JwtAuthGuard)
+  initialData(
+    @Req() req,
+  ) {
+    return this.authService.getInitialData(req.user.id);
   }
 }

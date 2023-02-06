@@ -1,21 +1,16 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, } from "react-router-dom";
-import { setSort } from "redux/slices/companies";
-import { userCompanies } from "redux/slices/companiesThunk/company.list";
+import { getSortedList } from "redux/thunk/company/company.list.sorted";
 import "./Companies.scss"
 
 export default function Companies() {
   const { list, sort } = useSelector(state => state.companies);
   const dispatch = useDispatch();
-  const handleClick = (select) => {
-    dispatch(setSort(select))
-  };
-  useEffect(() => {
-    if (list.length === 0) {
-      dispatch(userCompanies())
+  const handleClick = (sortBy) => {
+    if (sort !== sortBy) {
+      dispatch(getSortedList(sortBy));
     }
-  }, [])
+  };
 
   return (
     <div className="page">
@@ -32,11 +27,11 @@ export default function Companies() {
             Name
           </button>
           <button
-            className={sort === "service" ?
+            className={sort === "serviceOfActivity" ?
               "companiesList__sort__service active"
               :
               "companiesList__sort__service"}
-            onClick={() => handleClick("service")}
+            onClick={() => handleClick("serviceOfActivity")}
           >
             Service
           </button>

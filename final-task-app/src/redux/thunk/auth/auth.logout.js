@@ -2,8 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
 import Cookies from "universal-cookie";
 import { whileDatePromise } from "scripts/whileDatePromise";
-import { removeToken } from "redux/slices/auth";
-import { resetStore, setLoading } from "redux/slices/loading";
+import { resetStore, setLoading } from "redux/slices/app";
 
 
 const cookies = new Cookies();
@@ -20,8 +19,7 @@ export const autoLogOut = createAsyncThunk(
 export const logOut = createAsyncThunk(
   'auth/logOut',
   async (_, { dispatch }) => {
-    dispatch(setLoading())
-    dispatch(removeToken());
+    dispatch(setLoading(true))
     cookies.remove('jwt_token');
     dispatch(resetStore());
   }

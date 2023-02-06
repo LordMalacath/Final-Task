@@ -1,25 +1,26 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { setLoading } from 'redux/slices/loading';
 import { signup } from 'redux/thunk/auth/auth.signup';
 import "./SignUp.scss"
 
 export default function SignUp() {
-  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
-  const { auth } = useSelector(store => store.auth);
+  const { register, handleSubmit, formState: { errors }, watch} = useForm();
+  const { auth: { auth }, app: { errorMessage } } = useSelector(store => store);
   const dispatch = useDispatch();
   const redirect = useNavigate();
   const onSubmit = data => {
-    dispatch(setLoading());
     dispatch(signup(data));
-    reset();
-    redirect('/')
   };
+
   if (!auth) {
     return (
       <div className='signUp'>
-        <div className='signUp__tittle'>Sign Up</div>
+
+        {errorMessage ?
+          <div className="signUp__tittle error">{errorMessage}!</div>
+          :
+          <div className='signUp__tittle'>Sign Up</div>}
         <form className='signUp__form'
           onSubmit={handleSubmit(onSubmit)}
         >

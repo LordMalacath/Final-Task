@@ -2,6 +2,7 @@ const link = 'http://localhost:4000/';
 const endpoint = {
   signin: 'signin',
   signup: 'profile/signup',
+  initial: 'initial',
   profileUpdate: 'profile/update',
   profileAll: 'profile/all',
   profileById: 'profile/',
@@ -10,9 +11,10 @@ const endpoint = {
   companyUpdate: 'company/update/',
   companyDelete: 'company/delete/',
   companyAll: 'company/list',
+  companySorted: 'company/sort/',
 }
 
-//------------------------------------------------
+//-----------auth---------------------------------
 export const authSignin = async (body) => {
   body = JSON.stringify(body);
   const response = await fetch(`${link + endpoint.signin}`, {
@@ -41,7 +43,23 @@ export const authSignup = async (body) => {
     return error
   }
 }
-//------------------------------------------------
+
+export const authInitialData = async (token) => {
+  try {
+    const response = fetch(`${link + endpoint.initial}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    })
+    return response
+  } catch (error) {
+    console.log("Api: auth initial", error)
+    return error
+  }
+}
+
+//-----------profile------------------------------
 export const profileUpdate = async ({ body, token }) => {
   try {
     body = JSON.stringify(body);
@@ -105,8 +123,8 @@ export const profileByEmail = async ({ token, email }) => {
   }
 }
 
-//------------------------------------------------
-export const companyCreate = async ({ body, token }) => {
+//-----------company------------------------------
+export const companyCreate = async (body, token) => {
   try {
     body = JSON.stringify(body);
     const response = await fetch(`${link + endpoint.companyCreate}`, {
@@ -155,7 +173,7 @@ export const companyDelete = async ({ id, token }) => {
 
 export const companyAll = async (token) => {
   try {
-    const response = fetch(`${link + endpoint.companyAll}`, {
+    const response = await fetch(`${link + endpoint.companyAll}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -164,6 +182,21 @@ export const companyAll = async (token) => {
     return response
   } catch (error) {
     console.log("Api: compsny all", error);
+    return error
+  }
+}
+
+export const companyAllSorted = async (token, sortBy) => {
+  try {
+    const response = await fetch(`${link + endpoint.companySorted + sortBy}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      }
+    })
+    return response
+  } catch (error) {
+    console.log(error);
     return error
   }
 }

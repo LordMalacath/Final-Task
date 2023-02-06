@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setEditStatus } from "redux/slices/loading";
+import { setEditStatus } from "redux/slices/app";
 import UserUpdateForm from "./components/UserUpdateForm";
 import "./Profile.scss"
 
 export default function Profile() {
   const dispatch = useDispatch()
-  const { user: { info: userInfo }, loading: { editStatus: edit } } = useSelector(state => state);
+  const { user: { info: userInfo }, app: { editStatus: edit } } = useSelector(state => state);
   const handleEdit = () => { dispatch(setEditStatus(true)) }
 
   return (

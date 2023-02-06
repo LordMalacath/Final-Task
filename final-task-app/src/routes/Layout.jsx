@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom"
+import { Outlet} from "react-router-dom"
 import Header from "components/header/Header"
 import SideBar from "components/side/SideBar"
 
@@ -14,6 +14,7 @@ const style = {
 };
 
 export function Layout() {
+
   return (
     <div className="App">
       <Header />

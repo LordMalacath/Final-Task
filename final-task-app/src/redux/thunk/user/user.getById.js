@@ -1,15 +1,16 @@
+import jwtDecode from "jwt-decode";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { profileById } from "api";
-import jwtDecode from "jwt-decode";
-import { setAuth, setErrorMessage, setToken } from "redux/slices/auth";
-import { setLoading, setOk } from "redux/slices/loading";
+import { setAuth, setToken } from "redux/slices/auth";
+import { setLoading } from "redux/slices/app";
 import { setInfo } from "redux/slices/user";
 
 export const getUserById = createAsyncThunk(
   'user/getUserById',
   async (token, { dispatch }) => {
-    dispatch(setLoading());
+    dispatch(setLoading(true));
     const { sub: id } = jwtDecode(token);
+
     try {
       const response = await profileById({ id, token });
       const user = await response.json();
@@ -17,15 +18,15 @@ export const getUserById = createAsyncThunk(
         dispatch(setToken(token));
         dispatch(setAuth(true));
         dispatch(setInfo(user));
-        dispatch(setOk());
       } else {
         const { message } = await response.json()
-        dispatch(setErrorMessage(message));
         throw new Error(message)
       }
     } catch (error) {
-      dispatch(setOk());
-      console.log("Redux: get user by id =>", error)
+      console.log("Redux: get user by id", error);
+      return error
     }
+    
+    dispatch(setLoading(false));
   }
 )
