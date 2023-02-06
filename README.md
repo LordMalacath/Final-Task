@@ -75,10 +75,10 @@ NODE_ENV=production node app
 
 To run this project, you will need to add the following environment variables to your **.env** file on server side
 
-`DB_HOST` = ' '
-`DB_PORT` = 
-`DB_USERNAME` = ' '
-`DB_PASSWORD` = ' '
-`DB_NAME` = ' '
+`DB_HOST`
+`DB_PORT`
+`DB_USERNAME`
+`DB_PASSWORD`
+`DB_NAME`
 
 or as shown at **.env.local** .
